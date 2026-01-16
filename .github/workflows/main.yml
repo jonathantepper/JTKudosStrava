@@ -1,9 +1,9 @@
-name: Strava Sip Bot
+name: Strava Headless Bot
 
 on:
-  workflow_dispatch: # Allows you to run it manually to test
+  workflow_dispatch:
   schedule:
-    - cron: '0 */4 * * *' # Runs every 4 hours
+    - cron: '0 */4 * * *'
 
 jobs:
   kudos_run:
@@ -19,11 +19,10 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests
+          pip install selenium webdriver-manager
 
-      - name: Run Kudos Bot
+      - name: Run Headless Bot
         env:
-          STRAVA_CLIENT_ID: ${{ secrets.STRAVA_CLIENT_ID }}
-          STRAVA_CLIENT_SECRET: ${{ secrets.STRAVA_CLIENT_SECRET }}
-          STRAVA_REFRESH_TOKEN: ${{ secrets.STRAVA_REFRESH_TOKEN }}
+          STRAVA_EMAIL: ${{ secrets.STRAVA_EMAIL }}
+          STRAVA_PASSWORD: ${{ secrets.STRAVA_PASSWORD }}
         run: python bot.py
